@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* src/styles/globals.css (or your main CSS file) */
+/* ... other styles ... */
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #004080; /* A darker shade of navy or accent */
+  border-radius: 10px;
+  border: 2px solid transparent; /* For padding around scrollbar */
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #004080 transparent;
+}
