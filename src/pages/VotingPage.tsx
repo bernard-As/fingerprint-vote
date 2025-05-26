@@ -1,9 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // src/pages/VotingPage.tsx
 import React, { useState, useEffect, useCallback } from 'react';
 import type { Participant } from '../lib/types';
 import { getParticipants } from '../services/participantService'; // Assuming this exists
-import { recordVote, checkIfVoterHasAlreadyVotedGlobally, fetchAllParticipantVoteCounts, // <-- IMPORT
-  type ParticipantVoteCount } from '../services/voteService';
+import { recordVote, checkIfVoterHasAlreadyVotedGlobally, fetchAllParticipantVoteCounts} from '../services/voteService';
 import toast, { Toaster } from 'react-hot-toast';
 import FingerScanModal from '../components/features/FingerScanModal'; // <-- IMPORT
 // FIX: Update the import path to the correct location or create the component if missing.
@@ -157,43 +157,7 @@ const fetchVoteCountsData = useCallback(async () => {
     }
   };
 
-  const handleVote = async (participantId: string): Promise<{ success: boolean; message: string }> => {
-    if (isSubmittingVote || hasUserVotedGlobally) {
-      return { success: false, message: 'A vote is already in progress or you have already cast your vote.' };
-    }
-
-    setIsSubmittingVote(true);
-    toast.loading('Submitting your vote...', { id: `vote-${participantId}` });
-
-    // MODIFIED: Use alreadyVotedGlobally from the response
-    const { data, error: voteError, alreadyVotedGlobally } = await recordVote(participantId);
-
-    setIsSubmittingVote(false);
-
-    if (voteError) {
-      const message = alreadyVotedGlobally ? 'You have already cast your single vote.' : (voteError.message || 'Failed to cast vote.');
-      toast.error(message, { id: `vote-${participantId}` });
-      // alert(message);
-      if (alreadyVotedGlobally) {
-        setHasUserVotedGlobally(true);
-        // If the server confirms they already voted, try to fetch for whom if not already known
-        if (!votedForParticipantId) {
-            const voteStatus = await checkIfVoterHasAlreadyVotedGlobally();
-            setVotedForParticipantId(voteStatus.votedForParticipantId);
-        }
-      }
-      return { success: false, message };
-    }
-
-    if (data) {
-      toast.success('Vote successfully cast!', { id: `vote-${participantId}` });
-      // alert('Vote successfully cast!');
-      setHasUserVotedGlobally(true);
-      setVotedForParticipantId(participantId); // Store which participant was voted for
-      return { success: true, message: 'Vote cast!' };
-    }
-    return { success: false, message: 'An unknown error occurred.' };
-  };
+  
 
   if (isLoading && participants.length === 0) {
     return <div className="min-h-screen flex items-center justify-center bg-navy-primary text-neutral-light-text text-xl"><p>Loading participants...</p></div>;

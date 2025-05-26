@@ -1,6 +1,6 @@
 // src/services/participantService.ts
 import { supabase } from '../lib/supabaseClient';
-import type { Participant, ParticipantFormData } from '../lib/types';
+import type { Participant } from '../lib/types';
 
 const PARTICIPANTS_TABLE = 'participants'; // Your Supabase table name
 

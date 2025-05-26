@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabaseClient'; // For Realtime (optional)
 const LEADING_POLLING_INTERVAL_MS = 30000; // Poll every 30 seconds for leading participant
 import type { Participant } from '../lib/types';
 import { getParticipants } from '../services/participantService'; // Assuming you have this
-import { fetchAllParticipantVoteCounts, type ParticipantVoteCount } from '../services/voteService';
+import { fetchAllParticipantVoteCounts } from '../services/voteService';
 const HomePage: React.FC = () => {
   const navigate = useNavigate(); // Hook for programmatic navigation
   const [leadingParticipant, setLeadingParticipant] = useState<Participant | null>(null);
